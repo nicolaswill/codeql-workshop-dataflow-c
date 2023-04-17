@@ -110,7 +110,7 @@ Validation involves a comparison of the `input_types` parameter with a value ret
 There are three steps to this exercise:
 1. Find all calls to `DYN_INPUT_TYPE`.
 2. Restrict the set of `GuardCondition`s to those that have local data-flow from the result of a `DYN_INPUT_TYPE` call.
-3. Check if the `GuardCondition` ensures equality against the result of `DYN_INPUT_TYPE` and guards the basic block of the `input` access.
+3. Check if the `GuardCondition` ensures equality against the result of `DYN_INPUT_TYPE` and guards the basic block of the `input` access. Use `GuardCondition::ensuresEq` to model that equality comparison.
 
 Complete the `typeValidationGuard` predicate and output all `input` accesses that are not guarded by a type validation check.
 

@@ -23,17 +23,6 @@ class TypeValidationCall extends FunctionCall {
 }
 
 /**
- * Holds if `op1` and `op2` are checked for equality in any order
- * with no distinction between left and right operands of the equality check
- */
-predicate guardEnsuresEqUnordered(
-  Expr op1, Expr op2, GuardCondition guard, BasicBlock block, boolean areEqual
-) {
-  guard.ensuresEq(op1, op2, 0, block, areEqual) or
-  guard.ensuresEq(op2, op1, 0, block, areEqual)
-}
-
-/**
  * Relates a `call` to a `guard`, which uses the result of the call to validate
  * equality of the result of `call` against `other` to guard `block`.
  */
