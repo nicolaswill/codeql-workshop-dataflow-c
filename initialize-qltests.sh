@@ -17,7 +17,7 @@ target_dirs=(
 
 for dir in "${target_dirs[@]}"; do
     # copy test-part1.c to the Exercise1-Exercise6 directories
-    for i in {1..6}; do
+    for i in {1..5}; do
         cp $SRCDIR/test_part1.c $dir/Exercise$i/test.c
     done
     # copy test-part2.c to the Exercise7-Exercise11 directories
