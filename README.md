@@ -24,9 +24,8 @@ You can view an example solution for each exercise in the `solutions` directory.
   ```
 - Install the CodeQL pack dependencies using the command `CodeQL: Install Pack Dependencies` and select `exercises`, `solutions`, `exercises-tests`, and `solutions-tests` from the list of packs.
 - Build the databases using `build-databases.sh` and load the appropriate database for each part of the workshop with the VS Code CodeQL extension. Alternatively, you can download the following prebuilt databases: 
-    - [Pre-built CodeQL Database for Part 1]()
-    - [Pre-built CodeQL Database for Part 2]()
-    - [Pre-built CodeQL Database for Part 3]()
+    - [Pre-built CodeQL Database for Part 1](https://drive.google.com/file/d/1halBKf9fQtP2ODepJYFDFO1-6ljt9c9j/view?usp=share_link)
+    - [Pre-built CodeQL Database for Part 2](https://drive.google.com/file/d/1MOPTtgAj2QxJ3HhnPqByqFx21onIjnrK/view?usp=share_link)
 - :exclamation:Important:exclamation:: Run `initialize-qltests.sh` to initialize the tests. Otherwise, you will not be able to run the QLTests (in `exercises-tests` and `solutions-tests`).
 
 ## Example Problem
