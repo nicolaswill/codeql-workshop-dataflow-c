@@ -1,0 +1,20 @@
+WARNING: Unused method getInputParameter (/Users/kraiouchkine/internal/codeql-workshop-dataflow-c/solutions/Exercise8.ql:107,13-30)
+| test.c:32:10:32:17 | access to array |
+| test.c:32:28:32:35 | access to array |
+| test.c:33:10:33:17 | access to array |
+| test.c:38:10:38:17 | access to array |
+| test.c:38:28:38:35 | access to array |
+| test.c:39:10:39:17 | access to array |
+| test.c:46:10:46:17 | access to array |
+| test.c:46:28:46:35 | access to array |
+| test.c:47:10:47:17 | access to array |
+| test.c:51:12:51:19 | access to array |
+| test.c:51:30:51:37 | access to array |
+| test.c:52:12:52:19 | access to array |
+| test.c:74:19:74:26 | access to array |
+| test.c:79:16:79:23 | access to array |
+| test.c:80:16:80:23 | access to array |
+| test.c:89:26:89:33 | access to array |
+| test.c:93:10:93:17 | access to array |
+| test.c:93:29:93:36 | access to array |
+| test.c:94:17:94:24 | access to array |
