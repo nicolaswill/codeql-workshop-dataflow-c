@@ -1,0 +1,12 @@
+.cache
+*.testproj
+*.lock.yaml
+*.lock.yml
+*.actual
+exercises-tests/*/test.c
+solutions-tests/*/test.c
+cpp-dataflow-part1-database
+cpp-dataflow-part2-database
+cpp-dataflow-part3-database
+settings.json
+.DS_Store

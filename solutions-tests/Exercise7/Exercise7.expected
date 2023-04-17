@@ -1,0 +1,20 @@
+WARNING: Unused method getInputParameter (/Users/kraiouchkine/internal/codeql-workshop-dataflow-c/solutions/Exercise7.ql:84,13-30)
+| test.c:32:10:32:17 | access to array | test.c:53:14:54:24 | ... == ... |
+| test.c:32:10:32:17 | access to array | test.c:58:7:58:75 | ... != ... |
+| test.c:32:10:32:17 | access to array | test.c:71:7:71:76 | ... == ... |
+| test.c:32:28:32:35 | access to array | test.c:53:14:54:24 | ... == ... |
+| test.c:32:28:32:35 | access to array | test.c:58:7:58:75 | ... != ... |
+| test.c:32:28:32:35 | access to array | test.c:71:7:71:76 | ... == ... |
+| test.c:33:10:33:17 | access to array | test.c:53:14:54:24 | ... == ... |
+| test.c:33:10:33:17 | access to array | test.c:58:7:58:75 | ... != ... |
+| test.c:33:10:33:17 | access to array | test.c:71:7:71:76 | ... == ... |
+| test.c:63:10:63:17 | access to array | test.c:58:7:58:75 | ... != ... |
+| test.c:63:28:63:35 | access to array | test.c:58:7:58:75 | ... != ... |
+| test.c:64:10:64:17 | access to array | test.c:58:7:58:75 | ... != ... |
+| test.c:72:18:72:25 | access to array | test.c:71:7:71:76 | ... == ... |
+| test.c:73:18:73:25 | access to array | test.c:71:7:71:76 | ... == ... |
+| test.c:74:19:74:26 | access to array | test.c:71:7:71:76 | ... == ... |
+| test.c:86:12:86:19 | access to array | test.c:85:7:85:75 | ... == ... |
+| test.c:86:31:86:38 | access to array | test.c:85:7:85:75 | ... == ... |
+| test.c:87:19:87:26 | access to array | test.c:85:7:85:75 | ... == ... |
+| test.c:89:26:89:33 | access to array | test.c:85:7:85:75 | ... == ... |
