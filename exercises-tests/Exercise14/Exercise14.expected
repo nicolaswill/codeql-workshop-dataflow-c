@@ -1,0 +1,69 @@
+| test.c:48:19:48:23 | input | test.c:55:21:55:25 | input | test.c:53:14:53:27 | call to DYN_INPUT_TYPE |
+| test.c:58:7:58:17 | Phi | test.c:63:10:63:14 | input | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:58:7:58:17 | Phi | test.c:63:23:63:25 | buf | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:58:7:58:17 | Phi | test.c:63:41:63:43 | buf | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:58:7:58:17 | Phi | test.c:64:23:64:26 | size | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:63:23:63:25 | buf indirection | test.c:63:10:63:14 | input | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:63:23:63:25 | buf indirection | test.c:63:23:63:25 | buf | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:63:23:63:25 | buf indirection | test.c:63:41:63:43 | buf | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:63:23:63:25 | buf indirection | test.c:64:23:64:26 | size | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:63:41:63:43 | buf indirection | test.c:63:10:63:14 | input | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:63:41:63:43 | buf indirection | test.c:63:23:63:25 | buf | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:63:41:63:43 | buf indirection | test.c:63:41:63:43 | buf | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:63:41:63:43 | buf indirection | test.c:64:23:64:26 | size | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:64:23:64:26 | size indirection | test.c:63:10:63:14 | input | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:64:23:64:26 | size indirection | test.c:63:23:63:25 | buf | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:64:23:64:26 | size indirection | test.c:63:41:63:43 | buf | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:64:23:64:26 | size indirection | test.c:64:23:64:26 | size | test.c:58:22:58:35 | call to DYN_INPUT_TYPE |
+| test.c:70:28:70:32 | input indirection | test.c:72:18:72:22 | input | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:70:28:70:32 | input indirection | test.c:72:18:72:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:70:28:70:32 | input indirection | test.c:72:27:72:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:70:28:70:32 | input indirection | test.c:73:18:73:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:70:28:70:32 | input indirection | test.c:73:27:73:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:70:28:70:32 | input indirection | test.c:74:32:74:35 | size | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val | test.c:72:18:72:22 | input | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val | test.c:72:18:72:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val | test.c:72:27:72:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val | test.c:73:18:73:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val | test.c:73:27:73:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val | test.c:74:32:74:35 | size | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val indirection | test.c:72:18:72:22 | input | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val indirection | test.c:72:18:72:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val indirection | test.c:72:27:72:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val indirection | test.c:73:18:73:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val indirection | test.c:73:27:73:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:72:27:72:29 | val indirection | test.c:74:32:74:35 | size | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val | test.c:72:18:72:22 | input | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val | test.c:72:18:72:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val | test.c:72:27:72:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val | test.c:73:18:73:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val | test.c:73:27:73:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val | test.c:74:32:74:35 | size | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val indirection | test.c:72:18:72:22 | input | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val indirection | test.c:72:18:72:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val indirection | test.c:72:27:72:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val indirection | test.c:73:18:73:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val indirection | test.c:73:27:73:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:73:27:73:29 | val indirection | test.c:74:32:74:35 | size | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:74:32:74:35 | size indirection | test.c:72:18:72:22 | input | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:74:32:74:35 | size indirection | test.c:72:18:72:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:74:32:74:35 | size indirection | test.c:72:27:72:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:74:32:74:35 | size indirection | test.c:73:18:73:31 | ... ++ | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:74:32:74:35 | size indirection | test.c:73:27:73:29 | val | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:74:32:74:35 | size indirection | test.c:74:32:74:35 | size | test.c:71:22:71:35 | call to DYN_INPUT_TYPE |
+| test.c:84:35:84:39 | input indirection | test.c:86:12:86:16 | input | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:84:35:84:39 | input indirection | test.c:86:25:86:27 | buf | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:84:35:84:39 | input indirection | test.c:88:12:89:42 | * ... | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:84:35:84:39 | input indirection | test.c:89:39:89:41 | buf | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:86:25:86:27 | buf indirection | test.c:86:12:86:16 | input | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:86:25:86:27 | buf indirection | test.c:86:25:86:27 | buf | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:86:25:86:27 | buf indirection | test.c:88:12:89:42 | * ... | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:86:25:86:27 | buf indirection | test.c:89:39:89:41 | buf | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:88:13:89:42 | buf indirection | test.c:86:12:86:16 | input | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:88:13:89:42 | buf indirection | test.c:86:25:86:27 | buf | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:88:13:89:42 | buf indirection | test.c:88:12:89:42 | * ... | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:88:13:89:42 | buf indirection | test.c:89:39:89:41 | buf | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:89:39:89:41 | buf indirection | test.c:86:12:86:16 | input | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:89:39:89:41 | buf indirection | test.c:86:25:86:27 | buf | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:89:39:89:41 | buf indirection | test.c:88:12:89:42 | * ... | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |
+| test.c:89:39:89:41 | buf indirection | test.c:89:39:89:41 | buf | test.c:85:22:85:35 | call to DYN_INPUT_TYPE |

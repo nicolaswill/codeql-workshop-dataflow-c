@@ -347,7 +347,7 @@ It helps to approach implementing each predicate with an understanding of its pu
 
 Reimplement the new `isSource` and `isSink` predicates to bind state to `TypeUnvalidatedState`. Ignore the `isAdditionalFlowStep/4` and `isBarrier/2` predicates for now; they will be used in a later exercise. 
 
-You should see the same results as in Exercise 12.
+You should see the same results as in Exercise 12 (92 results).
 
 ### Exercise 14
 There are two primary ways to define state along a path:
