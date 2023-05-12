@@ -79,7 +79,7 @@ Before use, `input_types` must be validated against an expected value. If no suc
 
 ## Part 1: Introduction to Data-Flow Analysis by Modeling Missing Type Validation
 ### Exercise 1
-Output all expressions that access a `dynamic_input_t` array. Accessing dynamic inputs involves an `ArrayExpr` where the base type of the array type accessed is `dynamic_input_t`. These expressions can be thought of as "sinks" for the purpose of data-flow analysis.
+Output all expressions that access a `dyn_input_t` array. Accessing dynamic inputs involves an `ArrayExpr` where the base type of the array type accessed is `dyn_input_t`. These expressions can be thought of as "sinks" for the purpose of data-flow analysis.
 
 <details>
 <summary>Hint</summary>
@@ -105,7 +105,7 @@ if(expected_types != input_types) {
 // access
 ```
 
-Validation involves a comparison of the `input_types` parameter with a value returned from `DYN_INPUT_TYPE`, where the arguments to that call dictate the expected types of the `dynamic_input_t` array.
+Validation involves a comparison of the `input_types` parameter with a value returned from `DYN_INPUT_TYPE`, where the arguments to that call dictate the expected types of the `dyn_input_t` array.
 
 There are three steps to this exercise:
 1. Find all calls to `DYN_INPUT_TYPE`.
@@ -140,7 +140,7 @@ void func(dyn_input_t *input, unsigned int input_types, int irrelevant_param) {
 }
 ```
 
-The solution is global data-flow analysis. Start by modeling the source, i.e. the entrypoints and their parameters. Entrypoints are functions that are not called from anywhere else in the program and match the signature `int(dynamic_input_t*, unsigned int)`.
+The solution is global data-flow analysis. Start by modeling the source, i.e. the entrypoints and their parameters. Entrypoints are functions that are not called from anywhere else in the program and match the signature `int(dyn_input_t*, unsigned int)`.
 
 Specifically, these functions are:
 - `EP_copy_mem` 
@@ -309,12 +309,11 @@ What is the missing edge?
 </details>
 
 ## Exercise 12
-In this final exercise for Part 2, in the global data-flow configuration, add an additional flow step between the `input` parameter and the `output` parameter of calls to `lock_input` to add the missing edges.
+In this final exercise for Part 2, in the global data-flow configuration, add an additional flow step between the `input` parameter and the result of calls to `lock_input` (represented as the `FunctionCall` itself) to add the missing edges.
 
 <details>
 <summary>Hint</summary>
 
-* Use `Node::asDefiningArgument` to model the `output` parameter.
 * Use `Node::asExpr` to model the `input` parameter.
 
 </details>
@@ -323,47 +322,75 @@ You should now see additional results through flow paths that include `lock_inpu
 
 Optional: Re-add the barrier checks from `Exercise10` to see their impact on a larger set of results.
 
-# End of workshop
-
-This workshop is currently in ongoing development. Planned topics include:
-- Outputting flow state context for each result (currently, state is only bound inside the data-flow configuration).
-- Using runtime value analysis to identify type checks with patterns differing from `DYN_INPUT_TYPE`.
-
 ## Part 3: Flow-State
 The second part of this workshop built upon the data-flow and control-flow analysis from the first part to further identify cases where type validation exists but does not match the subsequent access type. However, that rudimentary recursive control-flow analysis might not work in all cases, as it does not preserve flow path state in the case of multiple function calls with varying validation states.
 
 To preserve the state of type validation checks across each data-flow path, we can use flow-state.
 
 ### Exercise 13
-Flow states are defined by a class extending `DataFlow::FlowState`. Within a data-flow configuration, an initial flow state is specified in the `isSource` predicate and can be subsequently updated in the `isAdditionalFlowStep` and `isBarrier` predicates. The `isSink` predicate can then check the (path-sensitive) flow-state and conditionally restrict sinks based on the state on the path to the sink.
+Definitions modelling the two possible states of type validation for a flow path to a `DynamicInputAccess`, validated and unvalidated, have been provided for you in this exercise. These states have been defined using `newtype` in order to create the [algebraic datatype](https://codeql.github.com/docs/ql-language-reference/types/#algebraic-datatypes) `TTypeValidationState`, which represents the possible states of type validation for a flow path to a `DynamicInputAccess`. Three classes have also been defined to extend from it using this [standard pattern](https://codeql.github.com/docs/ql-language-reference/types/#standard-pattern-for-using-algebraic-datatypes). Try to understand the syntax and the way these types have been structured before proceeding.
 
-First define the necessary flow-state classes:
-1. Define the flow state `InputTypesNotValidated` (hint: just use FlowStateString::FlowStateEmpty).
-2. Define the flow state `InputTypesValidated` with a [field declaration](https://codeql.github.com/docs/ql-language-reference/types/#fields) specifying the type validation call. Implement a `getValidatedType()` predicate to return the field.
+Secondly, the `InputToAccessConfig` data-flow configuration has been modified from the previous exercise to be stateful. Note the following four changes:
+1. `InputToAccessConfig` now implements `DataFlow::StateConfigSig` rather than `DataFlow::ConfigSig`.
+1. `InputToAccessConfig` now requires some changes to its predicate signatures to include state parameters.
+1. `InputToAccessConfig` requires a declaration of a `FlowState` type, which in this example, is an alias to `TTypeValidationState`.
+1. `InputToAccess` now constructs a data-flow computation using `DataFlow::MakeWithState<InputToAccessConfig>` rather than `DataFlow::Make<InputToAccessConfig>`.
 
-Note the changes in the data-flow configuration in Exercise13.ql: some predicates now have one or more `state` parameters. Complete the predicates to implement the flow-state logic. 
+It helps to approach implementing each predicate with an understanding of its purpose in stateful data-flow:
+| Predicate                | Standard use-pattern                                     |
+|--------------------------|----------------------------------------------------------|
+| `isSource`               | Bind `state` to an initial state                         |
+| `isSink`                 | Restrict sinks to those on paths with a specific `state` |
+| `isAdditionalFlowStep/4` | Define state changes from `node1` to `node2`             |
+| `isAdditionalFlowStep/2` | As before, define flow steps without a state change      |
+| `isBarrier`              | Block flow through `node` with a specific `state`        |
 
-For now, in `isSink`, only check if the state is `InputTypesNotValidated`.
+Reimplement the new `isSource` and `isSink` predicates to bind state to `TypeUnvalidatedState`. Ignore the `isAdditionalFlowStep/4` and `isBarrier/2` predicates for now; they will be used in a later exercise. 
 
-<details>
-<summary>Hint</summary>
-
-* `isSource` should check if state is an `instanceof` `InputTypesNotValidated`.
-* In `isAdditionalFlowStep`, we don't actually want to add another additional flow step. However, we should restrict the new state to be an `instanceof InputTypesValidated`, where `InputTypesValidated::getValidatedType()` is derived from
-the call column of `typeValidationGuard`.
-
-</details>
-
-Output all flow paths. You should see all results that do not have type validation.
+You should see the same results as in Exercise 12.
 
 ### Exercise 14
-In this final exercise, complete the `isSink` predicate to include cases where the state is `InputTypesValidated` and the expected type *does not* match the access type.
+There are two primary ways to define state along a path:
+1. Bind an initial state based on the source.
+1. Change a state along a path based on a step between two nodes.
 
-You should now see path-sensitive results with no false-negatives or false-positives.
+Those two approaches can also be used together.
 
-<details>
-<summary>Hint</summary>
+In this workshop, we will use the second approach: changing state along a path. Start by defining those state-changing steps as part of the `TypeValidatedState` class. Modeling and exposing the state changing step as part of the flow state class is a common pattern used frequently in the CodeQL standard library.
 
-* Use `typeValidationCallMatchesUse` in `isSink`.
+Complete the characteristic predicate of `TypeValidatedState` to bind all of its field declarations, where:
+* `node1` flows to `node2` in one step
+* `node1` is not guarded by a validation check that `node2` is guarded by
+* `call` is the call in the validation check `node2` is guarded by
 
-</details>
+Use `DataFlow::localFlowStep` to model the local flow step.
+
+You should see 69 results.
+
+### Exercise 15
+Next, combine the class written in Exercise 14 with the stateful data-flow introduced in Exercise 13. Rather than recursively checking if a sink/access is type-validated, introduce that check along the flow path with `isAdditionalFlowStep/4`.
+
+Reimplement the `isSink`, `isAdditionalFlowStep/4`, and `isBarrier` predicates.
+
+**Important**: 
+A peculiarity of flow-state is that modelling a state change in `isAdditionalFlowStep` for an edge that exists independently of this additional flow step created results in a duplicate subsequent flow path for *both* states. Therefore, `isBarrier` must be used to block that duplicate subsequent flow for the unwanted old state. Take the following example as a demonstration of this behavior. Assume that two states exist: `InitialState` and `ChangedState`. If `state_change(node)` is referenced in `isAdditionalFlowStep` but a matching reference in `isBarrier` for the `state_change` with `state instanceof InitialState` is missing, the flow state will be as follows:
+```cpp
+void flow_state_example(char* node) {
+  *node; // state instanceof InitialState
+  state_change(node); // arg_state instanceof InitialState, 
+                      // return_state instanceof [InitialState, ChangedState]
+  *node; // state instanceof [InitialState, ChangedState]
+}
+```
+
+**Hint:**
+Make sure to add a barrier to nodes on paths with a validated state but that are guarded by a type check with a type validation call not matching the call of the state (`state.(TypeValidatedState).getCall() != call_guarding_node`). 
+
+You should now see 22 results.
+
+### Exercise 16
+Lastly, refine the output message of your query by accessing the state of the sink node. Use an `if/then/else` statement in the `where` clause of the query to check if the sink is validated or unvalidated and output a descriptive message for each case accordingly.
+
+You can retrieve the state of a path node with `DataFlow::PathNode::getState()`. You can cast that state to the appropriate derived type if necessary.
+
+You should see the same 22 results but with more descriptive messages.

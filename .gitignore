@@ -10,3 +10,4 @@ cpp-dataflow-part2-database
 cpp-dataflow-part3-database
 settings.json
 .DS_Store
+*.code-workspace

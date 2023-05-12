@@ -81,7 +81,9 @@ module InputToAccessConfig implements DataFlow::ConfigSig {
   }
 
   predicate isSink(DataFlow::Node sink) {
-    exists(DynamicInputAccess access | sink.asExpr() = access.getArrayBase())
+    exists(DynamicInputAccess access | sink.asExpr() = access.getArrayBase() and
+      not typeValidationGuard(_, _, _, access.getBasicBlock())
+    )
   }
 
   predicate isBarrier(DataFlow::Node node) {
