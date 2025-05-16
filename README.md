@@ -20,7 +20,7 @@ You can view an example solution for each exercise in the `solutions` directory.
 - Install the latest version of the [CodeQL CLI](https://github.com/github/codeql-cli-binaries/releases).
 - Clone this repository:
   ```bash
-  git clone https://github.com/kraiouchkine/codeql-workshop-dataflow-c.git
+  git clone https://github.com/nicolaswill/codeql-workshop-dataflow-c.git
   ```
 - Install the CodeQL pack dependencies using the command `CodeQL: Install Pack Dependencies` and select `exercises`, `solutions`, `exercises-tests`, and `solutions-tests` from the list of packs.
 - Build the databases using `build-databases.sh` and load the appropriate database for each part of the workshop with the VS Code CodeQL extension. Alternatively, you can download the following prebuilt databases: 
